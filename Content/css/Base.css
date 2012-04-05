@@ -70,3 +70,7 @@ div.madLib span[data-ML] {
 div.madlib span.sentence {
 	display: block;
 }
+
+.reddish {
+    color: #ff0000;
+}

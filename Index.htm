@@ -41,15 +41,17 @@
 	madLibEngine.setupWordCollection();
 
 	madLibEngine.addAndFillTemplate();
+
+
 </script>
 
 
 <!-- OR -->
 
 <!-- FUN/API OPTION: UNCOMMENT THIS SECTION TO USE APIS -->
-<!--<script src="Content/js/Util.js"></script>
+<script src="Content/js/Util.js"></script>
 <script>
-
+    timeout = 1000;
 	// if you want you can create your own local override of the handle preword call.
 	// this method has examples of all the API calls, you can add your own custom calls and handlers if you wish.
 	// this is where you will choose what types of prefill searches you'd like to do.
@@ -60,16 +62,24 @@
 
 		if (CurrentWord)
 		{
-			// below are sample API calls that you can use. You will need to specify your own success and error function,
+            			// below are sample API calls that you can use. You will need to specify your own success and error function,
 			// but we have gone ahead and gotten the API calls plugged in for you ahead of time.
-
-			this.BingImageSearch(Element, CurrentWord, context.BingImageSearchCompleted, function () { madLibEngine.fillNextWord(); });
-			// this.YouTubeVideoSearch(Element, CurrentWord, context.YouTubeVideoSearchCompleted, function () { madLibEngine.fillNextWord(); });
+            timeout = timeout+500;
+            setTimeout( function() { Element.outerHTML = '<span class="reddish">' + $(Element).text() + '</span>' + '<audio autoplay="true"><source src="http://translate.google.com/translate_tts?tl=fr&q=' + $(Element).text()  + '" /></audio>' }, timeout);
+            return true;
+            //Element.outerHTML = CurrentWord + '<audio autoplay="true"><source src="http://translate.google.com/translate_tts?tl=en&q=' + CurrentWord  + '" /></audio>' 
+            //var search = WordCategory;
+            //this.BingImageSearch(Element, search, context.BingImageSearchCompleted, function () { madLibEngine.fillNextWord(); });
+            
+		    // this.YouTubeVideoSearch(Element, CurrentWord, context.YouTubeVideoSearchCompleted, function () { madLibEngine.fillNextWord(); });
 			// this.iTunesSeachAPI(Element, CurrentWord, function(Element, CurrentWord, Response){console.log(arguments); madLibEngine.fillNextWord();}, function(){ madLibEngine.fillNextWord(); });
 			// this.IMDBSearchAPI(Element, CurrentWord, function(Element, CurrentWord, Response){console.log(arguments); madLibEngine.fillNextWord();}, function(){ madLibEngine.fillNextWord(); });
-			// this.TwitterSearch(Element, CurrentWord, context.TwitterSearchCompleted, function(){ madLibEngine.fillNextWord(); });
+			//this.TwitterSearch(Element, CurrentWord, context.TwitterSearchCompleted, function(){ 
+            //    madLibEngine.fillNextWord(); 
+            //});
 			// this.NetflixSearchAPI(Element, CurrentWord, functionElement, CurrentWord, Response(){console.log(arguments); madLibEngine.fillNextWord();}, function(){ madLibEngine.fillNextWord(); });
 			// this.LastFMAPISearch(Element, CurrentWord, function (Element, CurrentWord, Response) { console.log(arguments); madLibEngine.fillNextWord(); }, function () { madLibEngine.fillNextWord(); });
+            
 		}
 		else
 		{
@@ -85,9 +95,18 @@
 	
 	// this is where you handle what happens after the word fills.
 	// called immediately after prefill.
-	Util.HandleWordPostFill = function (Element)
+	Util.HandleWordPostFill = function (Element, CurrentWord)
 	{
-		setTimeout(function(){madLibEngine.fillNextWord()}, 1000);
+		setTimeout(function(){
+
+            //var temp = ;
+            //Element.innerHTML = '<audio autoplay="true"><source src="http://translate.google.com/translate_tts?tl=en&q=' + CurrentWord  + '" /></audio>' 
+
+            //Element.innerHTML = CurrentWord
+            //Element.innerHTML = '<embed src="http://www.youtube.com/v/EBM854BTGL0&autoplay=1" type="application/x-shockwave-flash" wmode="transparent" width="425" height="344"></embed>'
+            console.log(CurrentWord)
+            madLibEngine.fillNextWord()
+        }, 1000);
 	};
 
 	$(document).ready(function ()
